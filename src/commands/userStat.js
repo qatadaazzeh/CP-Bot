@@ -33,6 +33,5 @@ export default {
             .setImage('https://codeforces.com/predownloaded/e9/38/e9389f9497973e8298c7442564cae12def341113.jpeg')
 
         await interaction.reply({ embeds: [embed] });
-        console.log(userAvatar)
     },
 };
