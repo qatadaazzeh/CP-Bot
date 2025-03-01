@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, EmbedBuilder, User } = require("discord.js");
+//const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 
-module.exports = {
+import { SlashCommandBuilder, EmbedBuilder } from "discord.js";
+export default {
     data: new SlashCommandBuilder()
         .setName("help")
         .setDescription("Displays a list of available commands."),
