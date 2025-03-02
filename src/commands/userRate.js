@@ -14,6 +14,9 @@ export default {
         await interaction.deferReply();
         const handle = interaction.options.getString("handle");
         const res = await CF_API.get_userAC(handle);
+        if (res == null) {
+            return await interaction.editReply('User not Found!');
+        }
         const buffer = await CHART.plotRatingBarChart(res);
         const attachment = new AttachmentBuilder(buffer, { name: 'rating_chart.png' });
         await interaction.editReply({

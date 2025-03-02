@@ -95,3 +95,20 @@ export const get_userTags = async function (handle) {
     console.log(sortedFreq);
     return sortedFreq;
 };
+
+
+export const getUserRateChange = async function (handle) {
+    const request = await fetch(API.API.userRating + handle);
+    if (request.ok) {
+        const Changes = await request.json();
+        const freq = {};
+        let last = 0;
+        for (const change of Changes.result) {
+            freq[change.contestName] = change.newRating
+            last = change.newRating
+        }
+        return freq;
+    }
+
+    return null;
+}
