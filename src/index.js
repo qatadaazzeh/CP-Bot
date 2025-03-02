@@ -1,6 +1,6 @@
 import { config as dotenvConfig } from "dotenv";
 dotenvConfig({ path: "../.env" });
-
+import dbConnect from './db/connect.js'
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import fs from "fs";
 import path from "path";
@@ -36,4 +36,5 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith("
     }
 
     client.login(process.env.TOKEN);
+    dbConnect();
 })();

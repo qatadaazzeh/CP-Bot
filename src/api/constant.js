@@ -1,9 +1,9 @@
 export const API = {
     user: 'http://codeforces.com/api/user.info?handles=',
-    problem: 'http://codeforces.com/api/problemset.problems?tags=',
+    problem: 'https://codeforces.com/api/problemset.problems',
     contest: 'https://codeforces.com/api/contest.list?gym=false',
     userstat: 'https://codeforces.com/api/user.status?handle=',
-    userRating: 'https://codeforces.com/api/user.rating?handle='
+    userRating: 'https://codeforces.com/api/user.rating?handle=',
 };
 
 export const CONTEST_STATUS = {

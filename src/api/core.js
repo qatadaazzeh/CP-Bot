@@ -112,3 +112,23 @@ export const getUserRateChange = async function (handle) {
 
     return null;
 }
+
+
+export const getUserRequest = async function (handle) {
+    const request = await fetch(API.API.user + handle + '&checkHistoricHandles=false');
+    return request.status;
+}
+
+
+export const getRandProblem = async function () {
+    const request = await fetch(API.API.problem);
+    if (request.ok) {
+        const jsonReq = await request.json();
+        const problems = jsonReq.result.problems;
+        if (Array.isArray(problems) && problems.length > 0) {
+            const randomIndex = Math.floor(Math.random() * problems.length);
+            return problems[randomIndex];
+        }
+    }
+    return null;
+}

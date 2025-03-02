@@ -21,7 +21,7 @@ export default {
         let userAvatar = ``;
         let userRank;
         User.result.forEach(user => {
-            Users += `----------------------------------\n**Handle : ** \`${handle}\`\n\n**Rating : **  \` ${(user.rating ? user.rating : 0)} - ${(user.rank ? user.rank : 0)} \` \n\n**Max Rating : ** \`${(user.maxRating ? user.maxRating : 0)} - ${(user.maxRank ? user.maxRank : 0)}\`\n\n **Profile Link : ** ${`https://codeforces.com/profile/${handle}`}\n----------------------------------\n`
+            Users += `----------------------------------\n**Handle : ** \`${handle}\`\n\n**Rating : **  \`${(user.rating ? user.rating : 0)} - ${(user.rank ? user.rank : 0)} \` \n\n**Max Rating : ** \`${(user.maxRating ? user.maxRating : 0)} - ${(user.maxRank ? user.maxRank : 0)}\`\n\n **Profile Link : ** ${`https://codeforces.com/profile/${handle}`}\n----------------------------------\n`
             userAvatar = user.titlePhoto;
             userRank = user.rank
         });
@@ -40,7 +40,7 @@ export default {
             .setColor(color)
 
         await interaction.reply({ embeds: [embed] });
-        console.log(userAvatar)
+
 
     },
 };
