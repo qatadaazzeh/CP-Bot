@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+
 const UserSchema = new Schema(
     {
         token: {
@@ -13,13 +14,26 @@ const UserSchema = new Schema(
             unique: true,
         },
         problem: {
-            type: Object,
-            required: true,
+            data: { type: Object, required: true },
+            timeUntil: {
+                type: Number,
+                default: () => Math.floor(Date.now() / 1000) + 300
+            },
+        },
+        valid: {
+            type: Boolean,
+            default: false
         }
     },
     {
         timestamps: true,
     }
 );
+
+UserSchema.methods.isSubmissionValid = function () {
+    const currentTime = Math.floor(Date.now() / 1000);
+    return currentTime < this.problem.timeUntil;
+};
+
 
 export default model("User", UserSchema);

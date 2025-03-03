@@ -30,6 +30,7 @@ const get_userStat = async function (handle) {
 
 export const get_userAC = async function (handle) {
     const Problems = await get_userStat(handle);
+    if (Problems == null) return null;
     const freq = {};
     const ACProblems = Problems.result.filter(problem => problem.verdict === "OK" && problem.problem.hasOwnProperty("rating"));
 
@@ -64,6 +65,7 @@ export const get_userAC = async function (handle) {
 
 export const get_userTags = async function (handle) {
     const Problems = await get_userStat(handle);
+    if (Problems == null) return null;
     const ACProblems = Problems.result.filter(
         problem =>
             problem.verdict === "OK" &&
@@ -131,4 +133,15 @@ export const getRandProblem = async function () {
         }
     }
     return null;
+}
+
+
+
+export const getCompiltionProblems = async function (handle, problemId) {
+    const Problems = await get_userStat(handle)
+    const CompileProblems = Problems.result.filter(
+        problem =>
+            problem.verdict === "COMPILATION_ERROR" && problem.problem.contestId === problemId
+    );
+    return CompileProblems
 }
