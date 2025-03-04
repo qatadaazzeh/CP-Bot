@@ -1,5 +1,5 @@
 import * as API from "../api/constant.js";
-
+import User from "../models/User.js";
 export const get_contests = async function () {
     const request = await fetch(API.API.contest);
     if (request.ok) {
@@ -9,7 +9,32 @@ export const get_contests = async function () {
     }
     return null;
 };
+export const getLastContest = async function () {
+    const request = await fetch(API.API.contest);
+    if (request.ok) {
+        const Contests = await request.json();
+        const finishedContests = Contests.result.filter(
+            contest => contest.phase === "FINISHED" && !contest.name.includes("Unrated")
+        );
+        finishedContests.sort((a, b) => b.startTimeSeconds - a.startTimeSeconds);
+        if (finishedContests.length > 0) {
+            const contestID = finishedContests[0].id;
+            const contestChange = await fetch(API.API.ratingChange + contestID);
+            if (contestChange.ok) {
+                const jsonContests = await contestChange.json();
+                const handles = jsonContests.result.map(user => user.handle);
+                const validUserRecords = await User.find({ handle: { $in: handles }, valid: true });
+                const validHandlesSet = new Set(validUserRecords.map(u => u.handle));
 
+                const filteredContests = jsonContests.result.filter(user => validHandlesSet.has(user.handle));
+                return filteredContests;
+            } else {
+                return null;
+            }
+        }
+    }
+    return null;
+}
 export const get_user = async function (handle) {
     const request = await fetch(API.API.user + handle + '&checkHistoricHandles=false');
     if (request.ok) {

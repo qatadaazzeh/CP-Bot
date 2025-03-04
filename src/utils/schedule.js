@@ -23,10 +23,6 @@ async function scheduleReminders() {
     contests.forEach((contest) => {
         const startTime = new Date(contest.startTimeSeconds * 1000);
         scheduleMessage(
-            new Date(startTime.getTime() - 9 * 24 * 60 * 60 * 1000),
-            `Reminder! ${contest.name} starts in 9 days.`
-        );
-        scheduleMessage(
             new Date(startTime.getTime() - 2 * 24 * 60 * 60 * 1000),
             `Reminder! ${contest.name} starts in 2 days.`
         );

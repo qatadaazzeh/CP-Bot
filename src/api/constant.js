@@ -4,6 +4,7 @@ export const API = {
     contest: 'https://codeforces.com/api/contest.list?gym=false',
     userstat: 'https://codeforces.com/api/user.status?handle=',
     userRating: 'https://codeforces.com/api/user.rating?handle=',
+    ratingChange: 'https://codeforces.com/api/contest.ratingChanges?contestId='
 };
 
 export const CONTEST_STATUS = {

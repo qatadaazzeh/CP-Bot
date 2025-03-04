@@ -7,10 +7,11 @@ import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
 import "./utils/cleanUp.js";
 import "./utils/schedule.js"
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands");
@@ -35,7 +36,13 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith("
             client.on(event.default.name, (...args) => event.default.execute(...args, client));
         }
     }
+    client.once('ready', () => {
+        import('./utils/ratingChange.js').then(module => {
+            module.scheduleRatingChangeNotifications(client);
+        });
+    })
 
     client.login(process.env.TOKEN);
     dbConnect();
 })();
+
