@@ -14,7 +14,7 @@ export default {
             return await interaction.reply('No Upcoming Contests');
         }
 
-        // Create an array of contest details for each contest.
+
         const contestDetails = contests.map(contest => {
             return `----------------------------------\n` +
                 `**Name : ** \`${contest.name}\`\n\n` +
@@ -23,15 +23,14 @@ export default {
                 `**Contest Duration : ** \`${timeConvert(contest.durationSeconds)}\`\n----------------------------------\n`;
         });
 
-        // Concatenate in chunks that do not exceed 1024 characters.
         const maxFieldLength = 1024;
         const fields = [];
         let currentField = '';
 
         contestDetails.forEach(detail => {
             if (currentField.length + detail.length > maxFieldLength) {
-                fields.push(currentField);  // push current field as full chunk.
-                currentField = detail;        // start new field with current detail.
+                fields.push(currentField);
+                currentField = detail;
             } else {
                 currentField += detail;
             }
@@ -40,7 +39,6 @@ export default {
             fields.push(currentField);
         }
 
-        // Create the embed and add each part as a separate field.
         const embed = new EmbedBuilder()
             .setColor(0x00FF00)
             .setTitle("Contest Menu")
