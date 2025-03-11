@@ -1,7 +1,7 @@
 import { config as dotenvConfig } from "dotenv";
 dotenvConfig({ path: "../.env" });
 import dbConnect from './db/connect.js'
-import { Client, Collection, GatewayIntentBits } from "discord.js";
+import { Client, Collection, GatewayIntentBits, ActivityType } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
@@ -37,6 +37,7 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith("
         }
     }
     client.once('ready', () => {
+        client.user.setActivity('ASU-Coding Club', { type: ActivityType.Watching });
         global.client = client
         import('./utils/ratingChange.js').then(module => {
             module.scheduleRatingChangeNotifications(client);

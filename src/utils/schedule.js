@@ -14,13 +14,12 @@ async function scheduleUpcomingContests(client) {
     if (!contests || contests.length === 0) return;
 
     const now = new Date();
-    // Filter upcoming contests (those that start after now)
     const upcomingContests = contests.filter(contest => {
         const contestStart = new Date(contest.startTimeSeconds * 1000);
         return contestStart > now;
     });
 
-    // Helper: schedules a job if scheduledTime is in the future.
+
     function scheduleMessage(scheduledTime, message) {
         if (scheduledTime > now) {
             schedule.scheduleJob(scheduledTime, async () => {
@@ -64,7 +63,7 @@ async function scheduleUpcomingContests(client) {
         }
     }
 
-    // Schedule reminders for each upcoming contest.
+
     upcomingContests.forEach(contest => {
         const startTime = new Date(contest.startTimeSeconds * 1000);
 
@@ -87,9 +86,7 @@ async function scheduleUpcomingContests(client) {
     });
 }
 
-// Schedule the job to run every minute.
-// This means scheduleUpcomingContests(global.client) will execute every minute.
-// Ensure that your client is assigned to global.client after login.
+
 schedule.scheduleJob('* * * * *', async () => {
     await scheduleUpcomingContests(global.client);
 });
