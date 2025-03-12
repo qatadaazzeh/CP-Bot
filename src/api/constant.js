@@ -38,3 +38,16 @@ export const RATING_RANGE = [
     { min: 2600, max: 2999, rank: "international_grandmaster" },
     { min: 3000, max: Infinity, rank: "legendary_grandmaster" }
 ];
+export const ROLES = {
+    'unrated': "1349207301134876672",
+    'newbie': "1349205740187025492",
+    'pupil': "1349187229289025576",
+    'specialist': "1349206163178393660",
+    'expert': "1349206257545777263",
+    'candidate_master': "1349206408834584678",
+    'master': "1349206540359303228",
+    'international_master': "1349206658529759304",
+    'grandmaster': "1349207017394540604",
+    'international_grandmaster': "1349207118397575199",
+    'legendary_grandmaster': "1349207239092863016"
+};

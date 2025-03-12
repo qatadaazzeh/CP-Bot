@@ -1,9 +1,11 @@
 import { config as dotenvConfig } from "dotenv";
-dotenvConfig({ path: "../.env" });
+
 
 import { REST, Routes } from "discord.js";
 import fs from "fs";
 import path from "path";
+
+dotenvConfig({ path: path.resolve(process.cwd(), "..", ".env") });
 import { fileURLToPath, pathToFileURL } from "url";
 
 const commands = [];

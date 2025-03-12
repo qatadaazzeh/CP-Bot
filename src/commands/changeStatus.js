@@ -49,7 +49,6 @@ export default {
 
             await buttonInteraction.update({ content: `✅ Status updated: **${selectedType} ${statusMessage}**`, components: [] });
 
-            console.log(interaction.client.user.presence.activities);
         } catch (err) {
             console.error("Error or timeout during status type selection:", err);
             await interaction.followUp({ content: "❌ No selection was made in time. Please try again.", ephemeral: true });

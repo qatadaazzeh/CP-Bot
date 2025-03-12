@@ -119,7 +119,6 @@ export const get_userTags = async function (handle) {
             sortedFreq[tag] = count;
         });
 
-    console.log(sortedFreq);
     return sortedFreq;
 };
 

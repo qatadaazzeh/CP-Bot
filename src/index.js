@@ -1,17 +1,26 @@
 import { config as dotenvConfig } from "dotenv";
-dotenvConfig({ path: "../.env" });
+
 import dbConnect from './db/connect.js'
 import { Client, Collection, GatewayIntentBits, ActivityType } from "discord.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath, pathToFileURL } from "url";
+dotenvConfig({ path: path.resolve(process.cwd(), "..", ".env") });
 import "./utils/cleanUp.js";
 
-
+import { initWelcome } from "./welcome/index.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildPresences] });
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildPresences
+    ]
+});
 client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands");
@@ -45,6 +54,7 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith("
         import('./utils/schedule.js').then(module => {
             module.scheduleUpcomingContests(client);
         });
+        initWelcome(client)
     })
 
     client.login(process.env.TOKEN);

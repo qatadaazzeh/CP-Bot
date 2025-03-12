@@ -2,8 +2,7 @@ import schedule from 'node-schedule';
 import * as CF_API from '../api/core.js';
 import { EmbedBuilder } from 'discord.js';
 
-const CHANNEL_ID = '1347315347535036500';
-
+import config from '../config.js';
 async function scheduleUpcomingContests(client) {
     if (!client) {
         console.error("Invalid client provided to scheduleUpcomingContests");
@@ -24,7 +23,7 @@ async function scheduleUpcomingContests(client) {
         if (scheduledTime > now) {
             schedule.scheduleJob(scheduledTime, async () => {
                 try {
-                    const channel = await client.channels.fetch(CHANNEL_ID);
+                    const channel = await client.channels.fetch(config.upcomingContestChannel);
                     const embed = new EmbedBuilder()
                         .setColor(0x00FF00)
                         .setTitle("Upcoming Contest Reminder")
